@@ -5,19 +5,18 @@ Sebuah studi kuantitatif pada lebih dari 2 ribu tweet tentang ChatGPT, dimulai d
 Name : Yogi Saputra
 
 ## DAFTAR ISI
-- [Latar Belakang](#latar-belakang)
-- [Objek](#objek)
-- [Metodologi](#metodologi)
-  - [Alat](#alat)
-  - [Data Aqcuisition](#data-acquisition)
-  - [Data Preprocessing](#data-preprocessing)
-  - [Data Modeling](#data-modeling)
-- [Results](#results)
-  - [Topic Modeling](#topic-modeling) 
-  - [Sentiment Analysis](#sentiment-analysis)
-  - [Deployment](#deployment)
-- [Kesimpulan](#kesimpulan)
-- [Referensi](#referensi)
+- [Latar Belakang]
+- [Objek]
+- [Metodologi]
+  - [Alat]
+  - [Data Aqcuisition]
+  - [Data Preprocessing]
+  - [Feature Engineering]
+  - [Data Modeling]
+  - [Sentiment Analysis]
+  - [Data Visualization]
+- [Kesimpulan]
+- [Referensi]
 
 <hr>
 
@@ -30,229 +29,120 @@ ChatGPT adalah chatbot kecerdasan buatan yang dikembangkan oleh OpenAI dan dilun
 Analisis tweet dari Agustus 2023 hingga Oktober 2023 yang menyebutkan ChatGPT dan mengungkapkan opini yang beragam dan tidak terstruktur. Identifikasi topik dan sentimen utama percakapan dan periksa persepsi pengguna awal ChatGPT. Kami menegaskan identifikasi ini akan memungkinkan kami memahami dan menilai kemampuan, efektivitas, dan tantangan ChatGPT. 
 
 **RUMUSAN MASALAH**
-- **RQ1** What are the profile characterisitics of ChatGPT early users?
-- **RQ2** What are the dominant topics that emerge from the tweets about ChatGPT?
+- **RM1** Bagaimana mengimplementasikan kombinasi metode VADER dan RoBERTa
+untuk analisis sentimen yang terkait dengan tweet-tweet tentang ChatGPT?
+- **RM2** Bagaimana tingkat akurasi dan performa metode VADER dan RoBERTa
+dalam menganalisis sentimen yang terkait dengan tweet-tweet tentang
+ChatGPT?
 <hr>
 
-## METHODOLOGY
+## METODOLOGI
 
-### TOOLS
+### ALAT
 <table style="width:100%">
   <tr>
-    <th>Task</th>
-    <th>Technique Description</th> 
-    <th>Tools/Packages Used</th>
+    <th>Tugas</th>
+    <th>Deskripsi</th> 
+    <th>Alat / Paket</th>
   </tr>
   <tr>
-    <td>Data Collection</td>
-    <td>Scraping tweets from Twitter </td> 
-    <td>snscrape</td>
+    <td>Data Acquisition</td>
+    <td>Crawling tweet-tweet dari
+Twitter </td> 
+    <td>Harvest</td>
   </tr>
   <tr>
     <td>Data Preprocessing</td>
-    <td>Duplication removal, lowercasing, noise removal (punctuation, stopwords, URLs, @users), lemmatization</td> 
+    <td>Duplicate removal, cleansing,
+case folding, tokenizing, stop
+words removal, lemmatization</td> 
     <td>re, NLTK, pandas, numpy</td>
   </tr>
   <tr>
     <td>Feature Engineering</td>
-    <td>Retrieving geographical info from a user's profile location; 
-      retrieving datetime info from tweet timestamps </td> 
-    <td>geopy, datetime</td>
-  </tr>
-  <tr>
-    <td>Topic Modeling</td>
-    <td>Identifying topics using the Latent Dirichlet Allocation (LDA) modelling</td> 
+    <td>Topic modelling menggunakan
+LDA </td> 
     <td>pyLDAvis, gensim</td>
   </tr>
   <tr>
     <td>Sentiment Analysis</td>
-    <td>Quantitative sentiment analysis of each topic via rule-based and deep learning based model</td> 
-    <td>VADER, roBERTa, scipy, torch</td>
+    <td>Analisis sentimen kuantitatif
+dari setiap topik melalui model
+berbasis aturan dan model
+berbasis deep learning</td> 
+    <td>VADER,
+roBERTa, scipy,
+torch</td>
   </tr>
   <tr>
     <td>Data Visualization</td>
     <td>Multi-attribute plots</td> 
-    <td>matplotlib, seaborn, wordcloud, PowerBI</td>
+    <td>matplotlib, seaborn</td>
   </tr>
   <tr>
     <td>Environments & Platforms</td>
     <td> </td> 
-    <td>Google Colab, Databricks, Pyspark, Jupyter Notebook, Twitter</td>
+    <td>Google Colab, VS Code, Jupyter Notebook, Twitter, Flask</td>
   </tr>
 </table><br>
 
+<h4> Data Acquisition: Bahan Penelitian </h4>
 
-### DATA-COLLECTION
-<table style="width:100%">
-  <tr>
-    <th>Method</th>
-    <th>Notes</th> 
-  </tr>
-  <tr>
-    <td>Tweepy</td>
-    <td>3200 tweets; no historical data</td> 
-  </tr>
-  <tr>
-    <td>GetOldTweets3</td>
-    <td>Twitter has removed the endpoint the GetOldTweets3 uses </td> 
-  </tr>
-  <tr>
-    <td>Twint</td>
-    <td>Twitter throws a more strict device + IP-ban after a certain amount of queries</td> 
-  </tr>
-  <tr>
-    <td><b>snscrape</b></td>
-    <td><b>Scrapped 1.25M tweets - 832,924 English tweets</b></td> 
-  </tr>
-</table>
-
-<h4> Data Collection: Identifying ChatGPT Content </h4>
-
-<li>Package used: snscrape</li>
-<li>Language: English</li>
-<li>Keywords: ChatGPT</li>
-<li>Timeframe: December 1, 2022 to January 31, 2023</li>
-<li>Features: User ID, User Name, User Verification, User Location, User Followers, Tweet Text, Posted Timestamp, and Posed Language</li>
-<li>Number of tweets collected = 1,255,518</li>
-<li>December - 474,572 tweets | January - 780,946 tweets</li>
+<li>Paket yang digunakan: harvest</li>
+<li>Bahasa: Inggris</li>
+<li>Kata kunci: ChatGPT</li>
+<li>Waktu: 1 Agustus hingga 31 Oktober 2023</li>
+<li>Struktur: User Name, Tweet Text, Date, dan Language</li>
+<li>Jumlah yang dikumpulkan = 2012 tweet</li>
 <hr>
 
 ### DATA-PREPROCESSING
-<b> Data Cleaning </b> 
-- Merged collected datasets into a single dataframe and removed duplicate tweets.
-- Dropped 17 tweets that were missing timestamp values.
-- Filled missing values in 'Location' column with the term "Unknown". 
+- Menghapus tweet duplikat.
+- Menghapus karakter yang tidak perlu.
+- Menjadikan huruf menjadi kecil semua
+- Tokenisasi
+- Menghapus kata umum atau kata penghubung
+- Menjadikan kata yang digunakan menjadi kata baku sesuai maknanya.
 
 
 **Feature Engineering**
-- Utilized the geopy package to obtain the geographic information (specifically, the country) from the profile location associated with each user..
-- Extracted both the date posted and the week from the timestamp by means of the datetime package, subsequently discarding the timestamp column.
-
-
-**English Tweet Text Preprocessing**
-- Filtered English-tweets and saved them to a new dataframe.
-- Converted all tweets that represented the same word in different cases (e.g. ChatGPT and CHATGPT) to the same lowercase form (e.g.chatgpt).
-- Removed noise such as punctuation, URLs, Twitter handles using the "re" library.
-- Removed stopwords using the NLTK English stopwords list, and eliminated tokens that were too short (less than three characters) or too long (over 50 characters). 
-- Exracted frequently occurring continuous sequence of 2 words (bigram) and 3 words (trigram) within the corpus.
-- Performed WordNet-based lemmatization using the NLTK pacakge to transform each word into its base or dictionary form. 
+Pada penelitian ini menggunakan teknik pemodelan Latent Dirichlet Allocation (LDA) yang tidak terawasi digunakan untuk
+mengekstraksi sejumlah topik utama dari tweet yang dikumpulkan. Dibuat kamus dan korpus yang berisi semua teks tweet, dengan menyaring katakata ekstrem yang muncul dengan frekuensi rendah atau tinggi (muncul dalam kurang dari 10 tweet atau lebih dari 50% tweet). Proses ini menerapkan LDA menggunakan modul LdaMulticore dalam library Gensim. Kemudian melakukan serangkaian eksperimen dengan variasi jumlah topik (N) dari 2 hingga 40, dan memperoleh skor kohesi yang
+relatif tinggi untuk rentang 4 hingga 7 topik. Setelah itu, menjalankan LDA dengan N=4 dan mengidentifikasi 4 topik berdasarkan tweet yang sangat relevan untuk setiap topik.
 
 
 ### DATA-MODELING
-**Unsupervised LDA**
-
-The unsupervised Latent Dirichlet Allocation (LDA) modelling technique was applied to extract a set of key ChatGPT topics from the collected tweets. 
-- Generated a dictionary and corpus containing all the tweet texts, filtering out extreme words with low/high appearing frequency of occurence (occuring in less than 10 tweets or more than 50% of tweets).
-- Inplemented LDA using the LdaMulticore module in Gensim library. 
-- Conducted a series of experiment by varing the number of topics (N) from 2 to 40, and obtained a relatively high coherence score for the range of 10 to 18 topics. 
-- Executed LDA with N=10 and identified 10 topics based on the highly relevant tweets for each topic. 
+Modelling merupakan fase dalam pengembangan analisis sentimen di mana dilakukan proses pemodelan model yang mampu melakukan pelabelan data tweet kemudian mengklasifikasikan tweet tersebut ke dalam kategori sentimen yang sesuai. Data yang digunakan sebagai pelatihan untuk model ini adalah data yang telah melalui tahapan sebelumnya. Pemodelan dilakukan dengan kombinasi dua metode yaitu menggunakan VADER dan RoBERTa. 
 
 **Sentiment Analysis**
-
-Sentiment analysis is an approach to identifying the emotional tone behind textual data. Various algorithms (models) are available for sentiment analysis tasks, and each has its pros and cons, such as: 
-
-- **Rule-based (lexicon-based):** Such kinds of models have their own dictionaries (lexicons) of words or emojis with positive or negative weights. These algorithms count the number of positive and negative words in the given text. If the number of positives is more than the negatives, they return a positive sentiment. If both are equal, they return a neutral sentiment. Rules or dictionaries of words can be customized. And these kinds of algorithms do not require any model training.
-- **Supervised Machine learning:** These algorithms are fed with many labeled text data until they can learn patterns or the essence of the statement instead of clearly defined rules. However, for this approach labeled data is required, which is not available in our study. 
-- **Unsupervised Deep Learning:** Such kinds of algorithms are able to learn patterns through multiple layers from unstructured and unlabeled data to perform sentiment analysis using various learning mechanisms, e.g. self-attention.
-
-In this study, we used both VADER (rule-based model) from the NLTK library and Twitter-roBERTa (deep learning based)from the TRANSFORMERS package to examine the early users' attitude towards ChatGPT.
+Setelah berhasil melatih model kombinasi VADER dan RoBERTa pada data sentimen terkait ChatGPT, langkah selanjutnya adalah melakukan analisis terhadap hasilnya. Pada tahap ini adalah bagian mengeksplorasi pola-pola sentimen yang terungkap dari tweet-tweet yang dihasilkan oleh pengguna terkait ChatGPT. Hasil analisis ini memberikan wawasan mendalam mengenai bagaimana masyarakat merespons penggunaan ChatGPT di media sosial Twitter dari dataset yang telah
+diambil. Dalam penelitian ini, menggunakan metode VADER (rule-based model) dari perpustakaan NLTK yang dikombinasikan dengan Twitter roBERTa (deep learning based) dari paket TRANSFORMERS untuk mengeksplorasi sikap pengguna terhadap ChatGPT. 
 
 <hr>
 
-## RESULTS
-### EDA
-**Tweets about ChatGPT over time**
-
-<img src="Image/tweets_months.png" style="width:400px;height:300px"><img src="Image/tweents_week.png" style="width:400px;height:300px">
-
-- When ChatGPT was first released, there were approximately 250,000 tweets discussing it in the first two weeks leading up to December 11, 2022.
-- The number of tweets mentioning ChatGPT in January 2023 was 1.65 times higher than the number of tweets in December 2022.
-- In week 9 (1/21/2023-1/29/2023), the number of tweets related to ChatGPT reached its highest point in the past two monts (246,657). 
-
-**Users' Features**
-
-- Verification Status
-  - ChatGPT has been adopted by both verified and non-verified users on Twitter: Only 3.1% of ChatGPT users on Twitter are verified.
-<img src="Image/verification.png" style="width:350px;height:300px">
-
-- Followers
-  - Some high-profile Twitter users with millions of followers have expressed interest in ChatGPT, including Elon Musk, CNN, NYTimes, and others.
-<img src="Image/followers2.png" style="width:400px;height:300px">
-
-- Tweeting Frequency
-  - From December 2022 to January 2023, a total of 550,655 Twitter users tweeted about ChatGPT.
-  - Among these users, 63.42% tweeted only once, while 36.58% tweeted more than once.
-<img src="Image/tweets_frequency.png" style="width:800px;height:300px">
-
-- Countries
-  - 31.7% users tweeting about ChatGPT were from the United Stats.
-  - The top 5 countries where ChatGPT was discussed the most were United States, the United Kingdom, India, Japan, and France.
-  - ChatGPT has grabbed attention from users in over 150 countries worldwide.
-<img src="Image/country.png" style="width:800px;height:350px">
-
-- Languages
-  - Over 70% of users discussing ChatGPT were English speakers.
-  - Around 30% of tweets about ChatGPT were written in other languages, i.e. Japanese, Spanish, French, etc., indicating that ChatGPT is also functional in languages other than Engligh.
-
-<img src="Image/language.png" style="width:550px;height:500px">
-<hr>
-
-### TOPIC-MODELING
-**Optimal Number of Topics and Iterations**
-
-After evaluating coherence score, comprehensibility of top keywords, and computational cost, the study determined the optimal number of topics (10) and iterations (60) for LDA analysis. 
-
-<img src="Image/topicnumber.png" style="width:450px;height:300px"> <img src="Image/iteration.png" style="width:400px;height:300px">
-
-<img src="Image/pyLDAvis.png" style="width:800px;height:500px">
-
-**Topics**
-
-Through a meticulous analysis of the top 20 keywords and hundreds of highly correlated tweets for each topic within the LDA topic modeling results, the study determined a descriptive and meaningful name for each topic. 
-The top 3 most discussed topics are:
-- T8 Impacts on Work and Efficiency
-- T5 ChatGTP's Issues and Reliability	
-- T1 ChatGPT's Cost and Access	
-
-<img src="Image/topic_list.png" style="width:800px;height:220px">
-
-<img src="Image/wordcloud.png" style="width:800px;height:400px">
-
-<hr>
-
-
-### SENTIMENT-ANALYSIS
-
-- **Comparison of VADER and roBERTa**
-  - When comparing VADER and roBERTa, it was found that VADER struggled to identify many positive or negative words in tweerts, often resulting in a polarity score of 0. roBERTa was better at capturing the deeper meaning of a text, allowing it to distinguish between negative and neutral tweets with greater sensitivity.
-  - Based on the prediction results, VADER identified positive and neutral tweets as more common, while negative tweets were relatively infrequent (only 12.4%). However, roBERTa's results showed that the number of negative tweets almost doubled (24.1%).
-  - In terms of computational efficiency, VADER was significantly faster than roBERTa, taking only 0.49 seconds to analyze 5000 tweets, while roBERTa took 243.42 seconds on a personal desktop.
-
-Overall, VADER is a faster option, but may not capture the nuances of natural language as well as roBERTa. The choice between VADER and roBERTa will depend on the specific task requirements and available computational resources.
-
-<img src="Image/polarity.png" style="width:450px;height:300px"> 
-
-<img src="Image/sentiment1.png" style="width:750px;height:300px"> 
-
-- **Sentiment Over Time (based on roBERTa results)**
-<img src="Image/sentiment_time.png" style="width:750px;height:300px"> 
-
-- **Sentiment of Each Topics**
-  - Topic T8 **Impacts on Work and Efficiency** and T7 **Impacts on Future Business and Industry** received the most positive sentiment of approximate 50%, indicating people's optimism about the postive effects of ChatGPT on furture work and life.
-  - Topic T5 **ChatGPT's Issues and Reliability** and T9 **Impacts on Education and Academy** received relatively more negative sentiment, approximately 46% and 30%, resperctively. This indicates that there is room for improvement in terms of user experience, system stability, watermarking for preventing plagiarism, etc.
-
-  Overall, early users of ChatGPT expressed mainly positive or neutral sentiments regarding its performance in assisting human tasks in various domains, such as business analysis, software development, and NLP. However, a limited percentage of users expressed concerns about potential misuse of ChatGPT and its reliability. 
-<img src="Image/sentiment_topic.png" style="width:750px;height:300px"> 
-
-<hr>
+## DATA VISUALIZATION
+Data Visualisasi ini untuk membantu memahami hasil analisis sentimen. Beberapa teknik visualisasi yang umum digunakan termasuk plot grafik untuk menunjukkan seberapa baik model bekerja dalam mengklasifikasikan sentimen positif, negatif, atau netral, atau word clouds untuk menunjukkan kata-kata yang paling sering muncul dalam dataset. Dalam penelitian ini, visualisasi data selain memakai library dari python juga yaitu menggunakan flask agar dapat membantu deployment secara sederhana untuk memudahkan menggunakan model yang telah dibuat serta mengidentifikasi pola dan tren dalam data teks dan membantu mengambil keputusan yang lebih baik berdasarkan hasil analisis. Selain itu, integrasi dengan Flask memungkinkan pengguna untuk berinteraksi dengan visualisasi melalui antarmuka web yang user-friendly, sehingga analisis dapat diakses lebih mudah yang lebih luas tanpa memerlukan pengetahuan teknis yang mendalam. Dengan demikian, visualisasi data tidak hanya meningkatkan interpretabilitas hasil analisis tetapi juga memainkan peran kunci dalam menyampaikan temuan kepada pemangku kepentingan dan mendukung pengambilan keputusan yang didasarkan pada data.
 
 ## CONCLUSION
-
-This study focused on showcasing the discussions about ChatGPT on Twitter, utilizing a dataset comprising 1.25 million tweets by leveraging machine learning and text analytics. Exploratory data analysis was conducted first on the collected dataset to understand the characteristics of early ChatGPT users. Further, topic modeling was performed to identify the main topics, followed by quantitative sentiment analysis on each topic. The study provides valuable insights into the sentiments of early ChatGPT users and emphasizes the importance of continued research and conversation to develop best practises for the responsible use of large language models. 
+Penerapan Latent Dirichlet Allocation untuk mengidentifikasi topik dan
+kombinasi metode VADER dengan algoritma RoBERTa untuk pembuatan sistem
+model analisis sentimen sebagai model untuk mengetahui respons masyarakat
+terhadap ChatGPT. Hal ini ditunjukkan dengan proses pengambilan dan
+pengolahan data dengan jumlah 984 data memberikan informasi respons
+masyarakat terhadap teknologi ChatGPT. Pengukuran akurasi dilakukan dengan
+menggunakan confusion matrix sebanyak dua metode, yaitu secara manual dan
+otomatis. Pada metode manual, data uji sebanyak 25 data dipilih secara manual
+untuk diuji terhadap dataset. Sementara itu, metode otomatis menggunakan
+dataset lebih besar dari kaggle sebesar 2000 data. Hasil pengujian manual
+menunjukkan akurasi sebesar 92%, dengan total prediksi benar sebanyak 23 dari
+25 data. Sementara pada pengujian otomatis dengan data sebanyak 2000 data,
+akurasi mencapai 98%. Rata-rata akurasi dari kedua metode ini adalah 95%,
+menunjukkan bahwa sistem model ini menghasilkan kinerja yang sangat baik
+dalam melakukan prediksi 
 
 <hr>
 
-## REFERENCES
+## REFERENSI
 - Chandrasekaran, Ranganathan, et al. "Examining public sentiments and attitudes toward COVID-19 vaccination: infoveillance study using Twitter posts." JMIR infodemiology 2.1 (2022): e33909.
 - Haque, Mubin Ul, et al. "" I think this is the most disruptive technology": Exploring Sentiments of ChatGPT Early Adopters using Twitter Data." arXiv preprint arXiv:2212.05856 (2022).
 - Scraping Tweets with snscrape: https://github.com/rashidesai24/Analyzing-Twitter-Trends-On-COVID-19-Vaccinations#-data-coverage-
