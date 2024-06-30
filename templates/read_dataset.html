@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table</title>
+    <style>
+        /* CSS untuk styling tabel */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* CSS untuk styling tombol */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        /* CSS untuk penempatan tombol */
+        .container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn">Back to Home</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Text</th>
+                <th>Dominant Topic</th>
+                <th>Topic Name</th>
+                <th>VADER Polarity</th>
+                <th>VADER Sentiment</th>
+                <th>RoBERTa Polarity</th>
+                <th>RoBERTa Sentiment</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in myData %}
+            <tr>
+                <td>{{ value[0] }}</td>
+                <td>{{ value[1] }}</td>
+                <td>{{ value[2] }}</td>
+                <td>{{ value[3] }}</td>
+                <td>{{ value[4] }}</td>
+                <td>{{ value[5] }}</td>
+                <td>{{ value[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

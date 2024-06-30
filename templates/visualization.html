@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualization Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            text-align: center;
+        }
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image-container img {
+            width: 600px;
+            height: auto;
+            margin: 20px;
+        }
+        .image-container .wordcloud img {
+            width: 800px;
+            height: auto;
+            margin: 20px;
+        }
+        .image-container .caption {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Visualization Data</h2>
+    <div class="image-container">
+        <div>
+            <img src="{{ url_for('static', filename='polarity.png') }}" alt="Polarity Distribution">
+            <div class="caption">Polarity Distribution</div>
+        </div>
+        <div>
+            <img src="{{ url_for('static', filename='sentiment.png') }}" alt="Sentiment Tweet">
+            <div class="caption">Sentiment Tweet</div>
+        </div>
+        <div>
+            <img src="{{ url_for('static', filename='eda.png') }}" alt="EDA Topic">
+            <div class="caption">Exploratory Data Analysis (Topic)</div>
+        </div>
+        <div class="wordcloud">
+            <img src="{{ url_for('static', filename='wc.png') }}" alt="Wordcloud">
+            <div class="caption">Wordcloud</div>
+        </div>
+    </div>
+    <button class="back-btn" onclick="window.location.href='/';">Back to Home</button>
+</body>
+</html>
