@@ -145,7 +145,6 @@ dalam melakukan prediksi
 ## REFERENSI
 - Chandrasekaran, Ranganathan, et al. "Examining public sentiments and attitudes toward COVID-19 vaccination: infoveillance study using Twitter posts." JMIR infodemiology 2.1 (2022): e33909.
 - Haque, Mubin Ul, et al. "" I think this is the most disruptive technology": Exploring Sentiments of ChatGPT Early Adopters using Twitter Data." arXiv preprint arXiv:2212.05856 (2022).
-- Scraping Tweets with snscrape: https://github.com/rashidesai24/Analyzing-Twitter-Trends-On-COVID-19-Vaccinations#-data-coverage-
 - Topic Modeling: https://medium.com/@kurtsenol21/topic-modeling-lda-mallet-implementation-in-python-part-1-c493a5297ad2
 - Sentiment Analysis: https://medium.com/@amanabdulla296/sentiment-analysis-with-vader-and-twitter-roberta-2ede7fb78909
 
